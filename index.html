@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Boolflix Ajax</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/master.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/locale/it.min.js"></script>
+    <script id="days-template" type="text/x-handlebars-template">
+      <div class="day" data-datecomplete="{{ datecomplete }}">
+        <li>{{ }}</li>
+      </div>
+    </script>
+    <script id="holidays-template" type="text/x-handlebars-template">
+        <span>{{ holiday }}</span>
+    </script>
+    <script id="months-template" type="text/x-handlebars-template">
+      <div class="prev">
+        <i class="fas fa-angle-left"></i>
+      </div>
+      <div>
+        <h1 data-month="{{ monthIndex }}" data-year="{{ year }}">{{ month }} {{ year }}</h1>
+        <span>{{ error }}</span>
+      </div>
+      <div class="next">
+        <i class="fas fa-angle-right"></i>
+      </div>
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="search-bar">
+        <input id="search-input" type="text" name="" value="" placeholder="Cerca un film" class="input">
+        <button id="search-button" type="button" name="button" class="btn">Cerca</button>
+      </div>
+      <div class="results">
+
+      </div>
+    </div>
+    <script type="text/javascript" src="js/script.js"></script>
+  </body>
+</html>

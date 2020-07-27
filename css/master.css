@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Montserrat, sans-serif;
+}
+h1,h2,h3,h4,h5 {
+  margin: 10px 0;
+}
+p,li {
+  margin: 5px 0;
+}
+ul,ol {
+  text-align: left;
+  padding-left: 20px;
+}
+ul {
+  list-style-type: none;
+}
+.input {
+  width: 70%;
+  margin: 10px 0;
+  padding: 10px;
+  border: none;
+}
+.btn {
+  width: 30%;
+  margin: 10px 0;
+  padding: 10px 20px;
+  border: none;
+  background-color: red;
+}
+.btn:hover {
+  background-color: hsla(0, 80%, 50%, 1);
+}
+.show {
+  transform: scale(1);
+  transition: scale 1s, ease .5s;
+}
+.hidden {
+  transform: scale(0);
+  max-height: 0;
+  max-width: 0;
+  overflow: hidden;
+  transition: scale .7s, ease .5s;
+}
+.red {
+  color: red;
+}
+.grey {
+  color: grey;
+}
+
+.container {
+  width: 100%;
+  min-width: 100%;
+  min-height: 100vh;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.search-bar {
+  width: 30%;
+  display: flex;
+  flex-flow: row nowrap;
+}
+.results {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+@media all and (max-width: 850px) {
+  h1 {
+    font-size: 20px;
+  }
+  .container {
+    min-width: 100%;
+    min-height: 100vh;
+  }
+
+}
