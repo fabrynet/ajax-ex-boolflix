@@ -27,7 +27,7 @@ function sendClick() {
   var input = $('#search-input');
   var query = input.val();
   if (query) {
-    search(query);
+    searchMovies(query);
   }
 }
 
@@ -77,10 +77,17 @@ function printResults (results) {
   var template = $('#result-template').html();
   var compiled = Handlebars.compile(template);
 
+  var flags =['de','en','es','fr','it','us'];
+
   for (var i = 0; i < results.length; i++) {
 
     var result = results[i];
     var voteAverage = result.vote_average;
+    var originalLanguage = result.original_language;
+
+    if (flags.includes(originalLanguage)) {
+      result['flag'] = originalLanguage;
+    }
 
     result['stars'] = printStars(voteAverage);
 

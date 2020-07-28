@@ -112,8 +112,12 @@ ul {
   border: 1px solid #fff;
   margin: 0 20px;
 }
-.stars i {
+.result i {
   color: yellow;
+}
+.result img {
+  width: 25px;
+  vertical-align: middle;
 }
 .error {
   color: #fff;

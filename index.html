@@ -16,8 +16,15 @@
         <ul>
           <li><span class="bold">Titolo: </span>{{ title }}</li>
           <li><span class="bold">Titolo originale: </span>{{ original_title }}</li>
-          <li data-language="{{ original_language }}"><span class="bold">Lingua: </span>{{ original_language }}</li>
-          <li class='stars'>
+          <li>
+            <span class="bold">Lingua: </span>
+            {{#if flag }}
+              <img src="flags/{{ flag }}.png"></img>
+              {{else}}
+              {{ original_language }}
+            {{/if}}
+          </li>
+          <li>
             <span class="bold">Voto: </span>
               {{ vote_average }}
               {{#each stars}}
