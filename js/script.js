@@ -4,6 +4,16 @@
 // 2. Titolo Originale
 // 3. Lingua
 // 4. Voto
+
+// Milestone 2:
+// Trasformiamo il voto da 1 a 10 decimale in un numero intero da 1 a 5, così da permetterci di stampare a schermo un numero di stelle piene che vanno da 1 a 5, lasciando le restanti vuote (troviamo le icone in FontAwesome).
+// Arrotondiamo sempre per eccesso all’unità successiva, non gestiamo icone mezze piene (o mezze vuote :P)
+// Trasformiamo poi la stringa statica della lingua in una vera e propria bandiera della nazione corrispondente, gestendo il caso in cui non abbiamo la bandiera della nazione ritornata dall’API (le flag non ci sono in FontAwesome).
+// Allarghiamo poi la ricerca anche alle serie tv. Con la stessa azione di ricerca dovremo prendere sia i film che corrispondono alla query, sia le serie tv, stando attenti ad avere alla fine dei valori simili (le serie e i film hanno campi nel JSON di risposta diversi, simili ma non sempre identici)
+// Qui un esempio di chiamata per le serie tv:
+// https://api.themoviedb.org/3/search/tv?api_key=e99307154c6dfb0b4750f6603256716d&language=it_IT&query=s
+// crubs
+
 // API: c089b873cc8df04b58b3abbdc34899b0
 
 function addListeners() {
@@ -28,11 +38,11 @@ function sendKeyup(event) {
   var keyWhich = event.which;
   var keyCode = event.keyCode;
   if ((keyWhich == 13 || keyCode == 13) && query) {
-    search(query);
+    searchMovies(query);
   }
 }
 
-function search (query) {
+function searchMovies (query) {
 
   var searchInput = $('#search-input');
   searchInput.val('');
@@ -68,15 +78,33 @@ function printResults (results) {
   var compiled = Handlebars.compile(template);
 
   for (var i = 0; i < results.length; i++) {
+
     var result = results[i];
-    var compiledHTML = compiled({
-      title: result.title,
-      original_title: result.original_title,
-      original_language: result.original_language,
-      vote_count: result.vote_count
-    });
+    var voteAverage = result.vote_average;
+
+    result['stars'] = printStars(voteAverage);
+
+    var compiledHTML = compiled(result);
     target.append(compiledHTML);
+
   }
+}
+
+function printStars (voteAverage) {
+
+  var starsFilled = Math.ceil(voteAverage / 2);
+  var starsEmpty = 5 - starsFilled;
+
+  var stars = [];
+
+  for (var i = 0; i < starsFilled; i++) {
+    stars.push('fas');
+  }
+  for (var i = 0; i < starsEmpty; i++) {
+    stars.push('far');
+  }
+
+  return stars;
 }
 
 function printError () {

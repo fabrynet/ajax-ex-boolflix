@@ -14,10 +14,16 @@
     <script id="result-template" type="text/x-handlebars-template">
       <div class="result">
         <ul>
-          <li><span class="bold">Titolo:</span> {{ title }}</li>
-          <li><span class="bold">Titolo originale:</span> {{ original_title }}</li>
-          <li><span class="bold">Lingua:</span> {{ original_language }}</li>
-          <li><span class="bold">Voto:</span> {{ vote_count }}</li>
+          <li><span class="bold">Titolo: </span>{{ title }}</li>
+          <li><span class="bold">Titolo originale: </span>{{ original_title }}</li>
+          <li data-language="{{ original_language }}"><span class="bold">Lingua: </span>{{ original_language }}</li>
+          <li class='stars'>
+            <span class="bold">Voto: </span>
+              {{ vote_average }}
+              {{#each stars}}
+                <i class="{{ this }} fa-star"></i>
+              {{/each}}
+          </li>
         </ul>
       </div>
     </script>
