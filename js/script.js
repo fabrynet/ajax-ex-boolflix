@@ -27,7 +27,9 @@ function sendClick() {
   var input = $('#search-input');
   var query = input.val();
   if (query) {
-    searchMovies(query);
+    $('.results').html('');
+    searchMovieDB(query, 'movie');
+    searchMovieDB(query, 'tv');
   }
 }
 
@@ -38,17 +40,19 @@ function sendKeyup(event) {
   var keyWhich = event.which;
   var keyCode = event.keyCode;
   if ((keyWhich == 13 || keyCode == 13) && query) {
-    searchMovies(query);
+    $('.results').html('');
+    searchMovieDB(query, 'movie');
+    searchMovieDB(query, 'tv');
   }
 }
 
-function searchMovies (query) {
+function searchMovieDB (query, type) {
 
   var searchInput = $('#search-input');
   searchInput.val('');
 
   $.ajax({
-    url: 'https://api.themoviedb.org/3/search/movie',
+    url: `https://api.themoviedb.org/3/search/${type}`,
     method: 'GET',
     data: {
       'api_key': 'c089b873cc8df04b58b3abbdc34899b0',
@@ -59,29 +63,37 @@ function searchMovies (query) {
       var results = data['results'];
       var totalResults = data['total_results'];
       if (totalResults > 0) {
-        printResults(results);
+        printResults(results, type);
       } else {
-        printError();
+        printError(type);
       }
     },
     error: function(error) {
-      printError();
+      printError(type);
     }
   });
 }
 
-function printResults (results) {
+function printResults (results, type) {
 
   var target = $('.results');
-  target.html('');
+
   var template = $('#result-template').html();
   var compiled = Handlebars.compile(template);
 
-  var flags =['de','en','es','fr','it','us'];
+  var flags =['de','en','es','fr','it','ja','us'];
 
   for (var i = 0; i < results.length; i++) {
 
     var result = results[i];
+
+    if (type == 'tv') {
+      var title = result.name;
+      var originalTitle = result.original_name;
+      result['title'] = title;
+      result['original_title'] = originalTitle;
+    }
+
     var voteAverage = result.vote_average;
     var originalLanguage = result.original_language;
 
@@ -114,13 +126,21 @@ function printStars (voteAverage) {
   return stars;
 }
 
-function printError () {
+function printError (type) {
   var target = $('.results');
   target.html('');
   var template = $('#error-template').html();
   var compiled = Handlebars.compile(template);
+  if (type == 'movie') {
+    var txt = "film";
+  } else if (type == 'tv') {
+    var txt = "telefilm";
+  } else {
+    var txt = "risultati";
+  }
+  var error = `Non ci sono ${txt} che corrispondano alla tua ricerca.`;
   var compiledHTML = compiled({
-    error: "Non ci sono film che corrispondano alla tua ricerca."
+    error: error
   });
   target.append(compiledHTML);
 }
