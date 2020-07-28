@@ -62,7 +62,6 @@ ul {
   padding: 0 20px;
 
   display: flex;
-  flex-flow: row nowrap;
   justify-content: space-between;
 }
 .logo > h1 {
@@ -80,7 +79,7 @@ ul {
   border: none;
 }
 .search button {
-  width: 30%;
+  width: 20%;
   height: 30px;
   padding: 10px 20px;
   border: none;
@@ -121,18 +120,31 @@ ul {
 }
 .error {
   color: #fff;
+  padding: 0 20px;
 }
 
-@media all and (max-width: 400px) {
+@media all and (max-width: 768px) {
   .container {
     min-width: 100%;
     min-height: 100vh;
   }
+  .search-bar {
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+  }
+  .logo,
+  .search {
+    width: 100%;
+  }
   .results {
     flex-flow: column nowrap;
+    height: calc(100vh - 120px);
   }
   .result {
     width: 100%;
+    min-width: 100%;
     margin: 0;
   }
 
