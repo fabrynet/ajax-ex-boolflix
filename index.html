@@ -13,7 +13,7 @@
     <script type="text/javascript" src="js/script.js"></script>
     <script id="result-template" type="text/x-handlebars-template">
       <div class="card">
-        <ul>
+        <ul class="card-info">
           <li><span class="bold">Categoria: </span>{{ type }}</li>
           <li><span class="bold">Titolo: </span>{{ title }}</li>
           <li><span class="bold">Titolo originale: </span>{{ original_title }}</li>
@@ -26,10 +26,12 @@
               {{ vote_average }}
               {{{ stars }}}
           </li>
-          <li>
-            <i><img class="poster" src="{{ poster }}" alt="Poster {{ title }}"></i>
-          </li>
+          <li><span class="bold">Overview: </span>{{ overview }}</li>
         </ul>
+        <img class="card-poster" src="{{ poster }}{{ poster_default }}" alt="Poster {{ title }}">
+        {{#if poster_default}}
+        <span class="card-title">{{ title }}</span>
+        {{/if}}
       </div>
     </script>
     <script id="error-template" type="text/x-handlebars-template">
@@ -42,7 +44,7 @@
     <div class="container">
       <div class="search-bar">
         <div class="logo">
-          <h1>BOOLFLIX</h1>
+          <h1>boolflix</h1>
         </div>
         <div class="search">
           <input id="search-input" type="text" name="" value="" placeholder="Cerca un film">

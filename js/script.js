@@ -19,6 +19,15 @@
 // Esempio di URL che torna la copertina di BORIS:
 // https://image.tmdb.org/t/p/w185/s2VDcsMh9ZhjFUxw77uCFDpTuXp.jpg
 
+// Milestone 4:
+// Trasformiamo quello che abbiamo fatto fino ad ora in una vera e propria webapp, creando un layout completo simil-Netflix:
+// ● Un header che contiene logo e search bar
+// ● Dopo aver ricercato qualcosa nella searchbar, i risultati appaiono sotto forma
+// di “card” in cui lo sfondo è rappresentato dall’immagine di copertina (​consiglio
+// la poster_path con w342)​
+// ● Andando con il mouse sopra una card (on hover), appaiono le informazioni
+// aggiuntive già prese nei punti precedenti più la overview
+
 // API: c089b873cc8df04b58b3abbdc34899b0
 
 function addListeners() {
@@ -109,6 +118,8 @@ function printResults (results, type) {
     var posterPath = result.poster_path;
     if (posterPath) {
       result.poster = getPoster(posterPath);
+    } else {
+      result.poster_default = 'img/ciak.png';
     }
 
     var compiledHTML = compiled(result);
