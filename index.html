@@ -11,8 +11,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/locale/it.min.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
+
+    <script id="result-title-template" type="text/x-handlebars-template">
+      <h1>{{ type }}</h1>
+      <h5>"{{ query }}"</h5>
+    </script>
+
     <script id="result-template" type="text/x-handlebars-template">
-      <div class="card">
+      <div class="card" style="background-image: url('{{ poster }}{{ poster_default }}')">
         <ul class="card-info">
           <li><span class="bold">Categoria: </span>{{ type }}</li>
           <li><span class="bold">Titolo: </span>{{ title }}</li>
@@ -28,12 +34,12 @@
           </li>
           <li><span class="bold">Overview: </span>{{ overview }}</li>
         </ul>
-        <img class="card-poster" src="{{ poster }}{{ poster_default }}" alt="Poster {{ title }}">
         {{#if poster_default}}
         <span class="card-title">{{ title }}</span>
         {{/if}}
       </div>
     </script>
+
     <script id="error-template" type="text/x-handlebars-template">
       <div class="error">
         {{ error }}
@@ -44,7 +50,7 @@
     <div class="container">
       <div class="search-bar">
         <div class="logo">
-          <h1>boolflix</h1>
+          <a href="#"><img src="https://fontmeme.com/permalink/200729/a6200ff4d86e858d497d771ab83ced00.png" alt="netflix-font" border="0"></a>
         </div>
         <div class="search">
           <input id="search-input" type="text" name="" value="" placeholder="Cerca un film">
@@ -52,13 +58,15 @@
         </div>
       </div>
       <div class="results">
-        <h1>Film</h1>
         <div class="result-film">
+          <div class="list-film">
 
+          </div>
         </div>
-        <h1>Serie TV</h1>
         <div class="result-series">
+          <div class="list-series">
 
+          </div>
         </div>
       </div>
     </div>

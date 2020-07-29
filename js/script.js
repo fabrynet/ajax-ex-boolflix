@@ -28,6 +28,16 @@
 // ● Andando con il mouse sopra una card (on hover), appaiono le informazioni
 // aggiuntive già prese nei punti precedenti più la overview
 
+// Milestone 5 (Opzionale):
+// Partendo da un film o da una serie, richiedere all'API quali sono gli attori che fanno
+// parte del cast aggiungendo alla nostra scheda Film / Serie SOLO i primi 5 restituiti
+// dall’API con Nome e Cognome, e i generi associati al film con questo schema:
+// “Genere 1, Genere 2, …”.
+
+// Milestone 6 (Opzionale):
+// Creare una lista di generi richiedendo quelli disponibili all'API e creare dei filtri con i
+// generi tv e movie per mostrare/nascondere le schede ottenute con la ricerca.
+
 // API: c089b873cc8df04b58b3abbdc34899b0
 
 function addListeners() {
@@ -41,10 +51,7 @@ function sendClick() {
   var input = $('#search-input');
   var query = input.val();
   if (query) {
-    $('.result-film').html('');
-    $('.result-series').html('');
-    getMovieDB(query, 'movie');
-    getMovieDB(query, 'tv');
+    startSearch (query);
   }
 }
 
@@ -55,11 +62,17 @@ function sendKeyup(event) {
   var keyWhich = event.which;
   var keyCode = event.keyCode;
   if ((keyWhich == 13 || keyCode == 13) && query) {
-    $('.result-film').html('');
-    $('.result-series').html('');
-    getMovieDB(query, 'movie');
-    getMovieDB(query, 'tv');
+    startSearch (query);
   }
+}
+
+function startSearch (query) {
+  $('.results h1').remove('');
+  $('.results h5').remove('');
+  $('.list-film').html('');
+  $('.list-series').html('');
+  getMovieDB(query, 'movie');
+  getMovieDB(query, 'tv');
 }
 
 function getMovieDB (query, type) {
@@ -78,6 +91,7 @@ function getMovieDB (query, type) {
       var results = data['results'];
       var totalResults = data['total_results'];
       if (totalResults > 0) {
+        printTitleResults(query, type);
         printResults(results, type);
       } else {
         printError(type);
@@ -89,10 +103,28 @@ function getMovieDB (query, type) {
   });
 }
 
+function printTitleResults (query, type) {
+  if (type == 'movie') {
+    var typeTxt = 'Film';
+    var target = $('.result-film');
+  } else if (type == 'tv') {
+    var typeTxt = 'Serie TV';
+    var target = $('.result-series');
+  }
+  var template = $('#result-title-template').html();
+  var compiled = Handlebars.compile(template);
+  var obj = {
+    type: typeTxt,
+    query: query
+  }
+  var compiledHTML = compiled(obj);
+  target.prepend(compiledHTML);
+}
+
 function printResults (results, type) {
 
-  var targetFilm = $('.result-film');
-  var targetSeries = $('.result-series');
+  var targetFilm = $('.list-film');
+  var targetSeries = $('.list-series');
 
   var template = $('#result-template').html();
   var compiled = Handlebars.compile(template);
@@ -170,14 +202,14 @@ function printError (type) {
   var compiled = Handlebars.compile(template);
 
   if (type == 'movie') {
-    var txt = "film";
-    var target = $('.result-film');
+    var txt = "Film";
+    var target = $('.list-film');
   } else if (type == 'tv') {
-    var txt = "telefilm";
-    var target = $('.result-series');
+    var txt = "Serie TV";
+    var target = $('.list-series');
   } else {
     var txt = "risultati";
-    var target = $('.result-film');
+    var target = $('.list-film');
   }
   var error = `Non ci sono ${txt} che corrispondano alla tua ricerca.`;
 
@@ -189,10 +221,6 @@ function printError (type) {
 
 function init() {
   addListeners();
-  // DEBUG:
-  getMovieDB('matrix', 'movie');
-  getMovieDB('matrix', 'tv');
-  // /DEBUG
 }
 
 $(document).ready(init);

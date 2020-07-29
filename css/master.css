@@ -100,11 +100,12 @@ ul {
 
   overflow-y: auto;
 }
-.results > h1 {
-  margin: 30px 0 0 30px;
-}
 .result-film,
 .result-series {
+  padding: 30px;
+}
+.list-film,
+.list-series {
   padding: 30px;
 
   display: flex;
@@ -117,9 +118,13 @@ ul {
 
 /* cards */
 .card {
+  position: relative;
   min-width: 342px;
   min-height: 513px;
-  position: relative;
+
+  background-repeat: no-repeat;
+  background-position: center;
+
   border: 1px solid #fff;
   margin-right: 30px;
   animation: fade-in 2s;
@@ -146,6 +151,7 @@ ul {
   position: absolute;
   width: 100%;
   height: 100%;
+  overflow-y: auto;
   background-color: rgba(2,2,2,0.8);
   opacity: 0;
 }
@@ -194,8 +200,8 @@ img.flag {
   .results {
     height: calc(100vh - 120px);
   }
-  .result-film,
-  .result-series {
+  .list-film,
+  .list-series {
     width: 100%;
     min-width: 100%;
     display: block;
@@ -209,11 +215,6 @@ img.flag {
     transform: scale(1);
     z-index: 999;
     transition: transform 0.5s;
-  }
-  .card img.card-poster {
-    max-width: 342px;
-    height: auto;
-    margin: 0 auto;
   }
 
 }
