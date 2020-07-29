@@ -14,6 +14,11 @@
 // https://api.themoviedb.org/3/search/tv?api_key=e99307154c6dfb0b4750f6603256716d&language=it_IT&query=s
 // crubs
 
+// Milestone 3:
+// In questa milestone come prima cosa aggiungiamo la copertina del film o della serie al nostro elenco. Ci viene passata dall’API solo la parte finale dell’URL, questo perché poi potremo generare da quella porzione di URL tante dimensioni diverse. Dovremo prendere quindi l’URL base delle immagini di TMDB: https://image.tmdb.org/t/p/​ per poi aggiungere la dimensione che vogliamo generare (troviamo tutte le dimensioni possibili a questo link: https://www.themoviedb.org/talk/53c11d4ec3a3684cf4006400​) per poi aggiungere la parte finale dell’URL passata dall’API.
+// Esempio di URL che torna la copertina di BORIS:
+// https://image.tmdb.org/t/p/w185/s2VDcsMh9ZhjFUxw77uCFDpTuXp.jpg
+
 // API: c089b873cc8df04b58b3abbdc34899b0
 
 function addListeners() {
@@ -29,7 +34,6 @@ function sendClick() {
   if (query) {
     $('.result-film').html('');
     $('.result-series').html('');
-    $('.error').html('');
     getMovieDB(query, 'movie');
     getMovieDB(query, 'tv');
   }
@@ -44,7 +48,6 @@ function sendKeyup(event) {
   if ((keyWhich == 13 || keyCode == 13) && query) {
     $('.result-film').html('');
     $('.result-series').html('');
-    $('.error').html('');
     getMovieDB(query, 'movie');
     getMovieDB(query, 'tv');
   }
@@ -103,6 +106,11 @@ function printResults (results, type) {
     var originalLanguage = result.original_language;
     result.flag = getFlag(originalLanguage);
 
+    var posterPath = result.poster_path;
+    if (posterPath) {
+      result.poster = getPoster(posterPath);
+    }
+
     var compiledHTML = compiled(result);
 
     if (type == 'tv') {
@@ -114,10 +122,18 @@ function printResults (results, type) {
   }
 }
 
+function getPoster (posterPath) {
+  var urlBase = 'https://image.tmdb.org/t/p/';
+  var posterSize = 'w342';
+  var poster = `${urlBase}${posterSize}${posterPath}`;
+  console.log(poster);
+  return poster;
+}
+
 function getFlag (originalLanguage) {
   var flags =['de','en','es','fr','it','ja','us'];
   if (flags.includes(originalLanguage)) {
-    flag = `<img src="flags/${originalLanguage}.png">`;
+    flag = `<img class="flag" src="flags/${originalLanguage}.png">`;
   }
   return flag;
 }
@@ -138,17 +154,19 @@ function getStars (voteAverage) {
 }
 
 function printError (type) {
-  var target = $('.error');
 
   var template = $('#error-template').html();
   var compiled = Handlebars.compile(template);
 
   if (type == 'movie') {
     var txt = "film";
+    var target = $('.result-film');
   } else if (type == 'tv') {
     var txt = "telefilm";
+    var target = $('.result-series');
   } else {
     var txt = "risultati";
+    var target = $('.result-film');
   }
   var error = `Non ci sono ${txt} che corrispondano alla tua ricerca.`;
 

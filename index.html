@@ -26,11 +26,16 @@
               {{ vote_average }}
               {{{ stars }}}
           </li>
+          <li>
+            <i><img class="poster" src="{{ poster }}" alt="Poster {{ title }}"></i>
+          </li>
         </ul>
       </div>
     </script>
     <script id="error-template" type="text/x-handlebars-template">
+      <div class="error">
         {{ error }}
+      </div>
     </script>
   </head>
   <body>
@@ -45,13 +50,12 @@
         </div>
       </div>
       <div class="results">
+        <h1>Film</h1>
         <div class="result-film">
 
         </div>
+        <h1>Serie TV</h1>
         <div class="result-series">
-
-        </div>
-        <div class="error">
 
         </div>
       </div>

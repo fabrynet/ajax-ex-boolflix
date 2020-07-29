@@ -93,39 +93,40 @@ ul {
 .results {
   width: 100%;
   height: calc(100vh - 60px);
-  background-color: #222;
 
+  background-color: #222;
   color: #fff;
 
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: flex-start;
-  align-items: center;
-
-  overflow-x: auto;
+  overflow-y: auto;
+}
+.results > h1 {
+  margin: 20px;
 }
 .result-film,
-.result-series,
-.error {
-  height: 100%;
+.result-series {
+  padding-bottom: 20px;
+
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
-  align-items: center;
+
+  overflow-x: auto;
 }
 .card {
   min-width: 400px;
   width: 400px;
-  height: 80%;
   border: 1px solid #fff;
   margin: 0 20px;
 }
-.card i {
+.card i.fa-star {
   color: yellow;
 }
-.card img {
+img.flag {
   width: 25px;
   vertical-align: middle;
+}
+img.poster {
+  width: 100%;
 }
 .error {
   color: #fff;
@@ -148,8 +149,13 @@ ul {
     width: 100%;
   }
   .results {
-    flex-flow: column nowrap;
     height: calc(100vh - 120px);
+  }
+  .result-film,
+  .result-series {
+    width: 100%;
+    min-width: 100%;
+    display: block;
   }
   .card {
     width: 100%;
