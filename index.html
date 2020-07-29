@@ -12,32 +12,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/locale/it.min.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
     <script id="result-template" type="text/x-handlebars-template">
-      <div class="result">
+      <div class="card">
         <ul>
+          <li><span class="bold">Categoria: </span>{{ type }}</li>
           <li><span class="bold">Titolo: </span>{{ title }}</li>
           <li><span class="bold">Titolo originale: </span>{{ original_title }}</li>
           <li>
             <span class="bold">Lingua: </span>
-            {{#if flag }}
-              <img src="flags/{{ flag }}.png"></img>
-              {{else}}
-              {{ original_language }}
-            {{/if}}
+            {{{ flag }}}
           </li>
           <li>
             <span class="bold">Voto: </span>
               {{ vote_average }}
-              {{#each stars}}
-                <i class="{{ this }} fa-star"></i>
-              {{/each}}
+              {{{ stars }}}
           </li>
         </ul>
       </div>
     </script>
     <script id="error-template" type="text/x-handlebars-template">
-      <div class="error">
         {{ error }}
-      </div>
     </script>
   </head>
   <body>
@@ -52,7 +45,15 @@
         </div>
       </div>
       <div class="results">
+        <div class="result-film">
 
+        </div>
+        <div class="result-series">
+
+        </div>
+        <div class="error">
+
+        </div>
       </div>
     </div>
   </body>

@@ -104,17 +104,26 @@ ul {
 
   overflow-x: auto;
 }
-.result {
+.result-film,
+.result-series,
+.error {
+  height: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+.card {
   min-width: 400px;
   width: 400px;
   height: 80%;
   border: 1px solid #fff;
   margin: 0 20px;
 }
-.result i {
+.card i {
   color: yellow;
 }
-.result img {
+.card img {
   width: 25px;
   vertical-align: middle;
 }
@@ -142,7 +151,7 @@ ul {
     flex-flow: column nowrap;
     height: calc(100vh - 120px);
   }
-  .result {
+  .card {
     width: 100%;
     min-width: 100%;
     margin: 0;
