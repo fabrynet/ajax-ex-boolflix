@@ -7,9 +7,6 @@
 body {
   font-family: Montserrat, sans-serif;
 }
-h1,h2,h3,h4,h5 {
-  margin: 10px 0;
-}
 p,li {
   margin: 5px 0;
 }
@@ -104,6 +101,9 @@ ul {
 .result-series {
   padding: 30px;
 }
+.result-film {
+  padding-bottom: 0;
+}
 .list-film,
 .list-series {
   padding: 30px;
@@ -114,6 +114,10 @@ ul {
 
   overflow-x: auto;
   overflow-y: hidden;
+}
+.query {
+  font-size: 14px;
+  font-weight: lighter;
 }
 
 /* cards */
@@ -192,6 +196,7 @@ img.flag {
     justify-content: center;
     align-items: center;
     height: 120px;
+    padding: 0 10px;
   }
   .logo,
   .search {
@@ -200,12 +205,16 @@ img.flag {
   .results {
     height: calc(100vh - 120px);
   }
+  .result-film,
+  .result-series {
+    padding: 10px;
+  }
   .list-film,
   .list-series {
     width: 100%;
     min-width: 100%;
     display: block;
-    padding: 10px;
+    padding: 10px 0;
   }
   .card {
     min-width: 100%;

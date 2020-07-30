@@ -68,11 +68,12 @@ function sendKeyup(event) {
 
 function startSearch (query) {
   $('.results h1').remove('');
-  $('.results h5').remove('');
   $('.list-film').html('');
   $('.list-series').html('');
-  getMovieDB(query, 'movie');
-  getMovieDB(query, 'tv');
+  var type = ['movie', 'tv'];
+  for (var i = 0; i < type.length; i++) {
+    getMovieDB(query, type[i]);
+  }
 }
 
 function getMovieDB (query, type) {
@@ -94,13 +95,15 @@ function getMovieDB (query, type) {
         printTitleResults(query, type);
         printResults(results, type);
       } else {
+        printTitleResults(query, type);
         printError(type);
       }
     },
     error: function(error) {
-      printError(type);
+      printError();
     }
   });
+  
 }
 
 function printTitleResults (query, type) {
@@ -169,7 +172,6 @@ function getPoster (posterPath) {
   var urlBase = 'https://image.tmdb.org/t/p/';
   var posterSize = 'w342';
   var poster = `${urlBase}${posterSize}${posterPath}`;
-  console.log(poster);
   return poster;
 }
 
