@@ -103,7 +103,7 @@ function getMovieDB (query, type) {
       printError();
     }
   });
-  
+
 }
 
 function printTitleResults (query, type) {
@@ -126,15 +126,17 @@ function printTitleResults (query, type) {
 
 function printResults (results, type) {
 
+  var resultsSorted = sortByKey(results, 'popularity');
+  console.log(resultsSorted);
   var targetFilm = $('.list-film');
   var targetSeries = $('.list-series');
 
   var template = $('#result-template').html();
   var compiled = Handlebars.compile(template);
 
-  for (var i = 0; i < results.length; i++) {
+  for (var i = 0; i < resultsSorted.length; i++) {
 
-    var result = results[i];
+    var result = resultsSorted[i];
 
     if (type == 'tv') {
       result.type = "Serie TV";
@@ -166,6 +168,14 @@ function printResults (results, type) {
     }
 
   }
+}
+
+function sortByKey(array, key) {
+    return array.sort(function(a, b) {
+        var x = a[key];
+        var y = b[key];
+        return ((x < y) ? 1 : ((x > y) ? -1 : 0));
+    });
 }
 
 function getPoster (posterPath) {
