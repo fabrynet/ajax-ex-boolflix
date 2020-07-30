@@ -18,7 +18,7 @@
 
     <script id="result-template" type="text/x-handlebars-template">
       <div class="card" style="background-image: url('{{ poster }}{{ poster_default }}')">
-        <ul class="card-info">
+        <ul class="card-info" data-id="{{ id }}">
           <li><span class="bold">Categoria: </span>{{ type }}</li>
           <li><span class="bold">Titolo: </span>{{ title }}</li>
           <li><span class="bold">Titolo originale: </span>{{ original_title }}</li>
@@ -32,8 +32,14 @@
               {{{ stars }}}
           </li>
           <li><span class="bold">Overview: </span>{{ overview }}</li>
-          <li><span class="bold">Attori: </span>{{ actors }}</li>
-          <li><span class="bold">Genere: </span>{{ genres }}</li>
+          <li>
+            <span class="bold">Attori: </span>
+            <span class="cast">{{ actors }}</cast>
+          </li>
+          <li>
+            <span class="bold">Generi: </span>
+            <span class="genres">{{ genres }}</span>
+          </li>
         </ul>
         {{#if poster_default}}
         <span class="card-title">{{ title }}</span>

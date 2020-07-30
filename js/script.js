@@ -94,6 +94,8 @@ function getMovieDB (query, type) {
       if (totalResults > 0) {
         printTitleResults(query, type);
         printResults(results, type);
+        printActors(type);
+        printGenres(type);
       } else {
         printTitleResults(query, type);
         printError(type);
@@ -152,10 +154,14 @@ function printResults (results, type) {
     var originalLanguage = result.original_language;
     result.flag = getFlag(originalLanguage);
 
-    var id = result.id;
-    var actors = getActors(id, type);
-    result.actors = actors;
-    console.log('result.actors',result.actors);
+    // var id = result.id;
+    // var actors = printActors(id, type);
+    // console.log('actors', actors);
+    // result.actors = actors;
+
+    // var genreIds = result.genre_ids;
+    // var genres = printGenres(genreIds, type);
+    // result.gnres = genres;
 
     var posterPath = result.poster_path;
     if (posterPath) {
@@ -175,28 +181,74 @@ function printResults (results, type) {
   }
 }
 
-function getActors (id, type) {
+function printActors (type) {
 
-  $.ajax({
-    url: `https://api.themoviedb.org/3/${type}/${id}/credits`,
-    method: 'GET',
-    data: {
-      'api_key': 'c089b873cc8df04b58b3abbdc34899b0',
-      'language': 'it-IT'
-    },
-    success: function(data) {
-      var cast = data['cast'];
-      var actors = [];
-      for (var i = 0; i < cast.length; i++) {
-        var actor = cast[i].name;
-        actors.push(actor);
+  $('.card-info').each(function() {
+
+    var id =  $(this).data("id");
+    var target = $(this).find('.cast');
+
+    $.ajax({
+      url: `https://api.themoviedb.org/3/${type}/${id}/credits`,
+      method: 'GET',
+      data: {
+       'api_key': 'c089b873cc8df04b58b3abbdc34899b0',
+       'language': 'it-IT'
+      },
+      success: function(data) {
+       var cast = data['cast'];
+       var actors = '';
+       for (var i = 0; i < cast.length && i < 5; i++) {
+         var actor = cast[i].name;
+         if (i == cast.length - 1 || i == 4) {
+           actors += `${actor}.`;
+         } else {
+           actors += `${actor}, `;
+         }
+       }
+       target.text(actors);
+      },
+      error: function(error) {
+       target.text('--');
       }
-      console.log('actors', actors);
-      return actors;
-    },
-    error: function(error) {
-      printError();
-    }
+    });
+
+  });
+
+}
+
+function printGenres (type) {
+
+  $('.card-info').each(function() {
+
+    var id =  $(this).data("id");
+    var target = $(this).find('.genres');
+
+    $.ajax({
+      url: `https://api.themoviedb.org/3/${type}/${id}`,
+      method: 'GET',
+      data: {
+       'api_key': 'c089b873cc8df04b58b3abbdc34899b0',
+       'language': 'it-IT'
+      },
+      success: function(data) {
+       var genres = data['genres'];
+       var genreList = '';
+       for (var i = 0; i < genres.length && i < 5; i++) {
+         var genreName = genres[i].name;
+         if (i == genres.length - 1 || i == 4) {
+           genreList += `${genreName}.`;
+         } else {
+          genreList += `${genreName}, `;
+         }
+       }
+       target.text(genreList);
+      },
+      error: function(error) {
+       target.text('--');
+      }
+    });
+
   });
 
 }
