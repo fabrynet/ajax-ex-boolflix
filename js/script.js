@@ -127,7 +127,7 @@ function printTitleResults (query, type) {
 function printResults (results, type) {
 
   var resultsSorted = sortByKey(results, 'popularity');
-  console.log(resultsSorted);
+
   var targetFilm = $('.list-film');
   var targetSeries = $('.list-series');
 
@@ -152,6 +152,11 @@ function printResults (results, type) {
     var originalLanguage = result.original_language;
     result.flag = getFlag(originalLanguage);
 
+    var id = result.id;
+    var actors = getActors(id, type);
+    result.actors = actors;
+    console.log('result.actors',result.actors);
+
     var posterPath = result.poster_path;
     if (posterPath) {
       result.poster = getPoster(posterPath);
@@ -170,12 +175,30 @@ function printResults (results, type) {
   }
 }
 
-function sortByKey(array, key) {
-    return array.sort(function(a, b) {
-        var x = a[key];
-        var y = b[key];
-        return ((x < y) ? 1 : ((x > y) ? -1 : 0));
-    });
+function getActors (id, type) {
+
+  $.ajax({
+    url: `https://api.themoviedb.org/3/${type}/${id}/credits`,
+    method: 'GET',
+    data: {
+      'api_key': 'c089b873cc8df04b58b3abbdc34899b0',
+      'language': 'it-IT'
+    },
+    success: function(data) {
+      var cast = data['cast'];
+      var actors = [];
+      for (var i = 0; i < cast.length; i++) {
+        var actor = cast[i].name;
+        actors.push(actor);
+      }
+      console.log('actors', actors);
+      return actors;
+    },
+    error: function(error) {
+      printError();
+    }
+  });
+
 }
 
 function getPoster (posterPath) {
@@ -236,3 +259,12 @@ function init() {
 }
 
 $(document).ready(init);
+
+// Utility Functions
+function sortByKey(array, key) {
+    return array.sort(function(a, b) {
+        var x = a[key];
+        var y = b[key];
+        return ((x < y) ? 1 : ((x > y) ? -1 : 0));
+    });
+}
