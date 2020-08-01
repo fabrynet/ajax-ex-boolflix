@@ -10,6 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/locale/it.min.js"></script>
+
     <script type="text/javascript" src="js/script.js"></script>
 
     <script id="result-title-template" type="text/x-handlebars-template">
@@ -17,7 +18,8 @@
     </script>
 
     <script id="result-template" type="text/x-handlebars-template">
-      <div class="card" style="background-image: url('{{ poster }}{{ poster_default }}')">
+      <div class="card">
+        <img class="card-poster" src="{{ poster }}{{ poster_default }}">
         <ul class="card-info" data-id="{{ id }}">
           <li><span class="bold">Categoria: </span>{{ type }}</li>
           <li><span class="bold">Titolo: </span>{{ title }}{{ name }}</li>
@@ -42,7 +44,7 @@
           </li>
         </ul>
         {{#if poster_default}}
-        <span class="card-title">{{ title }}</span>
+        <span class="card-title">{{ title }}{{ name }}</span>
         {{/if}}
       </div>
     </script>

@@ -124,10 +124,7 @@ ul {
 .card {
   position: relative;
   min-width: 342px;
-  min-height: 513px;
-
-  background-repeat: no-repeat;
-  background-position: center;
+  min-height: 500px;
 
   border: 1px solid #fff;
   margin-right: 30px;
@@ -145,7 +142,7 @@ ul {
   bottom: 30px;
   left: 50%;
   transform: translate(-50%);
-  font-size: 2em;
+  font-size: 1.6em;
   text-align: center;
   color: #fff;
   text-shadow: 4px 2px 4px #222;
@@ -168,9 +165,10 @@ ul {
   opacity: 1;
   transition: opacity 1s;
 }
-.card:hover .card-title {
+.card:hover .card-title,
+.card:hover .card-poster {
   opacity: 0;
-  transition: opacity 1s;
+  transition: opacity 0.6s;
 }
 .card i.fa-star {
   color: yellow;

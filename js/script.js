@@ -45,6 +45,14 @@ function addListeners() {
   var searchInput = $('#search-input');
   searchButton.click(sendClick);
   searchInput.keyup(sendKeyup);
+  $('.card-poster').on('tap', function() {
+    $(this).hide();
+    $(this).find('.card-info').show();
+  });
+  $('.card-info').on('tap', function() {
+    $(this).hide();
+    $(this).siblings('.card-poster').show();
+  });
 }
 
 function sendClick() {
@@ -161,6 +169,9 @@ function printResults (results, type) {
     var overview = movie.overview;
     if (overview == '') {
       movie.overview = '--';
+    } else if (overview.length > 300) {
+      movie.overview = overview.substring(0, 299);
+      movie.overview += '...';
     }
 
     var compiledHTML = compiled(movie);
