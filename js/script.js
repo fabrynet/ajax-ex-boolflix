@@ -39,20 +39,43 @@
 // generi tv e movie per mostrare/nascondere le schede ottenute con la ricerca.
 
 // API: c089b873cc8df04b58b3abbdc34899b0
+var timer;
 
 function addListeners() {
   var searchButton = $('#search-button');
   var searchInput = $('#search-input');
   searchButton.click(sendClick);
   searchInput.keyup(sendKeyup);
-  $('.card-poster').on('tap', function() {
-    $(this).hide();
-    $(this).find('.card-info').show();
-  });
-  $('.card-info').on('tap', function() {
-    $(this).hide();
-    $(this).siblings('.card-poster').show();
-  });
+  $('.results').on({
+    'mouseenter': toggleActiveClass,
+    'mouseleave': toggleActiveClass,
+    'touchstart': touchstart,
+    'touchend': touchend
+  }, '.card');
+}
+
+function toggleActiveClass () {
+  $(this).toggleClass('active');
+}
+
+// gestisco la classe .active solo alla pressione prolungata sul touch, 500ms
+function touchstart(e) {
+  var target = $(this);
+  // e.preventDefault();
+  if (!timer) {
+      timer = setTimeout(function(){
+        timer = null;
+        $(target).toggleClass('active');
+      }, 500);
+  }
+}
+
+// se fermo il touch prima dei 500ms azzero il timer e non faccio nulla
+function touchend() {
+  if (timer) {
+      clearTimeout(timer);
+      timer = null;
+  }
 }
 
 function sendClick() {

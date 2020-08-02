@@ -19,7 +19,6 @@
 
     <script id="result-template" type="text/x-handlebars-template">
       <div class="card">
-        <img class="card-poster" src="{{ poster }}{{ poster_default }}">
         <ul class="card-info" data-id="{{ id }}">
           <li><span class="bold">Categoria: </span>{{ type }}</li>
           <li><span class="bold">Titolo: </span>{{ title }}{{ name }}</li>
@@ -43,6 +42,7 @@
             <span class="genres">{{ genres }}</span>
           </li>
         </ul>
+        <img class="card-poster" src="{{ poster }}{{ poster_default }}">
         {{#if poster_default}}
         <span class="card-title">{{ title }}{{ name }}</span>
         {{/if}}
